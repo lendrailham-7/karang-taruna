@@ -140,7 +140,7 @@ Jalankan server pengembangan:
 npm run dev
 ```
 
-Buka browser di alamat yang tampil (biasanya `http://localhost:3000`). Untuk masuk panel admin, buka `http://localhost:3000/admin`.
+Buka browser di alamat yang tampil (biasanya `http://127.0.0.1:8080`). Untuk masuk panel admin, buka `http://127.0.0.1:8080/admin`.
 
 ---
 
