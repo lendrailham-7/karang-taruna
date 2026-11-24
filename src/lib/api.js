@@ -146,6 +146,34 @@ export async function uploadFoto(file, folder) {
   return data.publicUrl
 }
 
+/**
+ * Simpan record yang punya foto dengan aman:
+ * 1. Upload foto baru (jika ada)
+ * 2. Simpan record lewat callback `save(foto_url)`
+ * 3. Hapus foto lama bila diganti/dihapus
+ * Jika penyimpanan gagal, foto yang baru diupload dibersihkan lagi.
+ */
+export async function simpanDenganFoto({ folder, oldUrl = null, newFile = null, removeFoto = false, save }) {
+  let fotoUrl = oldUrl
+  let uploadedUrl = null
+
+  if (newFile) {
+    uploadedUrl = await uploadFoto(newFile, folder)
+    fotoUrl = uploadedUrl
+  } else if (removeFoto) {
+    fotoUrl = null
+  }
+
+  try {
+    const result = await save(fotoUrl)
+    if (oldUrl && oldUrl !== fotoUrl) await deleteFotoByUrl(oldUrl)
+    return result
+  } catch (err) {
+    if (uploadedUrl) await deleteFotoByUrl(uploadedUrl)
+    throw err
+  }
+}
+
 /** Ambil path di dalam bucket dari URL publik Supabase Storage. */
 export function getPathFromPublicUrl(url) {
   if (!url) return null
