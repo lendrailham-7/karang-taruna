@@ -1,9 +1,5 @@
 import { useInView } from '../hooks/useInView'
 
-/**
- * Animasi muncul saat elemen di-scroll ke viewport.
- * @param {{ as?: any, delay?: number, className?: string, children: any }} props
- */
 export default function Reveal({ as: Tag = 'div', delay = 0, className = '', children, ...rest }) {
   const [ref, visible] = useInView()
   return (

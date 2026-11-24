@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
 
-/** Header halaman dalam (selain beranda). */
 export default function PageHeader({ title, description, crumbs = [] }) {
   return (
     <section className="relative isolate overflow-hidden bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800 pb-14 pt-28 sm:pb-16 sm:pt-36">

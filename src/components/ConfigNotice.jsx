@@ -1,7 +1,6 @@
 import { AlertTriangle } from 'lucide-react'
 import { isSupabaseConfigured } from '../lib/supabase'
 
-/** Banner peringatan bila env Supabase belum diisi. */
 export default function ConfigNotice({ className = '' }) {
   if (isSupabaseConfigured) return null
   return (

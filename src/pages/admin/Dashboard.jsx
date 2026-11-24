@@ -18,7 +18,7 @@ function salam() {
 }
 
 export default function Dashboard() {
-  useDocumentTitle('Dasbor Admin')
+  useDocumentTitle('Dashboard Admin')
   const { user } = useAuth()
   const stats = useAsync(() => getStats(), [])
   const terbaru = useAsync(() => getKegiatan({ limit: 5 }), [])
@@ -37,7 +37,7 @@ export default function Dashboard() {
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-accent-400/20 blur-2xl" />
         <div className="relative">
           <p className="text-sm font-medium text-accent-300">{salam()} 👋</p>
-          <h1 className="mt-1 font-display text-2xl font-bold sm:text-3xl">Dasbor Admin</h1>
+          <h1 className="mt-1 font-display text-2xl font-bold sm:text-3xl">Dashboard Admin</h1>
           <p className="mt-1 truncate text-sm text-primary-200">{user?.email}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/admin/kegiatan?baru=1" className="btn-accent">

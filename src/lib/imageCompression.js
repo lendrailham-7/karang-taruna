@@ -1,9 +1,3 @@
-/**
- * Kompres gambar di browser sebelum diupload agar hemat kuota Supabase gratis.
- * - Sisi terpanjang maksimal `maxSize` px (default 800)
- * - Ukuran file target <= `maxBytes` (default 200 KB)
- * - Output WebP (jika didukung browser) atau JPEG
- */
 export async function compressImage(file, { maxSize = 800, maxBytes = 200 * 1024 } = {}) {
   if (!file || !file.type?.startsWith('image/')) {
     throw new Error('File yang dipilih bukan gambar.')
@@ -19,11 +13,10 @@ export async function compressImage(file, { maxSize = 800, maxBytes = 200 * 1024
   let quality = 0.85
   let blob = null
 
-  // Loop: turunkan kualitas dulu, lalu dimensi jika masih terlalu besar
   for (let attempt = 0; attempt < 12; attempt++) {
     canvas.width = width
     canvas.height = height
-    ctx.fillStyle = '#ffffff' // latar putih untuk PNG transparan -> JPEG
+    ctx.fillStyle = '#ffffff'
     ctx.fillRect(0, 0, width, height)
     ctx.imageSmoothingEnabled = true
     ctx.imageSmoothingQuality = 'high'
@@ -51,13 +44,10 @@ function fitSize(w, h, max) {
 }
 
 async function loadImage(file) {
-  // createImageBitmap otomatis menghormati orientasi EXIF di browser modern
   if (typeof createImageBitmap === 'function') {
     try {
       return await createImageBitmap(file, { imageOrientation: 'from-image' })
-    } catch {
-      /* fallback ke <img> */
-    }
+    } catch {}
   }
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file)

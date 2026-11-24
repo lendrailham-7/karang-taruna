@@ -19,11 +19,9 @@ export default function AnggotaCard({ item, onClick, compactDivision = false }) 
         info.isKoordinator ? 'ring-2 ring-accent-300/90' : ''
       }`}
     >
-      {/* Latar dekoratif */}
       <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-br from-primary-700 to-primary-900 transition-all duration-500 group-hover:h-full" />
       <div className="bg-batik absolute inset-x-0 top-0 h-20 opacity-60 transition-all duration-500 group-hover:h-full" />
 
-      {/* Pita Koordinator di pojok kanan atas */}
       {info.isKoordinator && (
         <span className="absolute right-2.5 top-2.5 z-10 inline-flex items-center gap-1 rounded-full bg-accent-400 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-primary-950 shadow">
           <Crown className="h-3 w-3" /> Koor

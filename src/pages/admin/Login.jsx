@@ -56,7 +56,7 @@ export default function Login() {
 
         <div className="rounded-3xl bg-white p-7 shadow-2xl sm:p-9">
           <div className="flex flex-col items-center text-center">
-            <Logo className="h-16 w-16 animate-float" />
+            <Logo className="h-20 w-20 animate-float" />
             <h1 className="mt-4 font-display text-2xl font-bold text-primary-900">Panel Admin</h1>
             <p className="mt-1 text-sm text-stone-500">{site.fullName}</p>
           </div>

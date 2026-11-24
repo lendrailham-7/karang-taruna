@@ -82,7 +82,6 @@ export default function AnggotaForm({ open, item, onClose, onSubmit }) {
           />
         </div>
 
-        {/* Pilih kategori: Pengurus Inti vs Divisi */}
         <div>
           <span className="label">
             Kelompok Struktural <span className="text-red-500">*</span>

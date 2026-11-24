@@ -1,9 +1,3 @@
-/**
- * ============================================================
- *  KONFIGURASI SITUS
- *  Ubah teks, kontak, dan tautan media sosial di sini.
- * ============================================================
- */
 export const site = {
   name: 'Karang Taruna 14',
   fullName: 'Karang Taruna 14 Antapani Kidul',
@@ -32,7 +26,7 @@ export const site = {
     alamat: 'Sekretariat RW 14, Kel. Antapani Kidul, Kec. Antapani, Kota Bandung, Jawa Barat',
     email: 'karangtaruna14.antapanikidul@gmail.com',
     telepon: '+62 812-0000-0000',
-    whatsapp: '6281200000000', // format internasional tanpa tanda +
+    whatsapp: '6281200000000',
     mapsUrl: 'https://maps.google.com/?q=Antapani+Kidul+Bandung',
   },
 

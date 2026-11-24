@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { ToastProvider } from './context/ToastContext'
 import Layout from './components/Layout'
@@ -24,7 +24,6 @@ export default function App() {
         <ScrollToTop />
         <Suspense fallback={<FullScreenLoader />}>
           <Routes>
-            {/* Halaman Publik */}
             <Route element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="kegiatan" element={<Kegiatan />} />
@@ -33,7 +32,6 @@ export default function App() {
               <Route path="*" element={<NotFound />} />
             </Route>
 
-            {/* Halaman Admin */}
             <Route path="admin/login" element={<Login />} />
             <Route
               path="admin"
@@ -46,6 +44,7 @@ export default function App() {
               <Route index element={<Dashboard />} />
               <Route path="kegiatan" element={<KegiatanAdmin />} />
               <Route path="anggota" element={<AnggotaAdmin />} />
+              <Route path="*" element={<Navigate to="/admin" replace />} />
             </Route>
           </Routes>
         </Suspense>

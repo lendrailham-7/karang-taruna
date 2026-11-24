@@ -1,13 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 
-/**
- * Klien Supabase untuk frontend.
- *
- * KEAMANAN: hanya memakai ANON key (aman untuk publik karena dibatasi RLS).
- * JANGAN PERNAH menaruh service_role key di sini / di file .env frontend.
- */
 const rawUrl = import.meta.env.VITE_SUPABASE_URL?.trim()
-// Bersihkan bila pengguna tidak sengaja menyalin URL dengan akhiran /rest/v1/
 const supabaseUrl = rawUrl ? rawUrl.replace(/\/rest\/v1\/?$/i, '').replace(/\/+$/, '') : ''
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim()
 

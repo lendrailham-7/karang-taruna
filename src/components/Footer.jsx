@@ -21,7 +21,6 @@ export default function Footer() {
       <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-primary-600/30 blur-3xl" />
 
       <div className="container-page relative">
-        {/* CTA */}
         <div className="-mb-px flex flex-col items-start justify-between gap-6 border-b border-white/10 py-12 md:flex-row md:items-center">
           <div>
             <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">

@@ -94,7 +94,6 @@ export default function KegiatanAdmin() {
         </button>
       </div>
 
-      {/* Pencarian */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative w-full sm:max-w-sm">
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
@@ -124,7 +123,6 @@ export default function KegiatanAdmin() {
         )}
       </div>
 
-      {/* Daftar */}
       <div className="card overflow-hidden">
         {loading ? (
           <TableRowSkeleton rows={5} />

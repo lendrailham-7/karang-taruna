@@ -60,7 +60,6 @@ export default function Kegiatan() {
       />
 
       <section className="container-page py-12 sm:py-16">
-        {/* Toolbar */}
         <div className="sticky top-16 z-30 -mx-4 mb-8 bg-stone-50/90 px-4 py-3 backdrop-blur-md sm:top-20 sm:mx-0 sm:rounded-2xl sm:px-0">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="relative w-full lg:max-w-sm">

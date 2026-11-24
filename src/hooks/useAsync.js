@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-/**
- * Hook sederhana untuk memuat data async dengan state loading/error.
- * @param {() => Promise<any>} fn
- * @param {any[]} deps
- */
 export function useAsync(fn, deps = []) {
   const [state, setState] = useState({ data: null, loading: true, error: null })
   const mounted = useRef(true)
@@ -19,7 +14,6 @@ export function useAsync(fn, deps = []) {
       if (mounted.current) setState({ data: null, loading: false, error })
       return null
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 
   useEffect(() => {

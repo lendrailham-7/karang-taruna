@@ -47,14 +47,13 @@ export default function Navbar() {
     >
       <nav className="container-page flex h-16 items-center justify-between sm:h-20">
         <Link to="/" className="group flex items-center gap-3" aria-label="Beranda">
-          <Logo className="h-10 w-10 transition duration-500 group-hover:rotate-[360deg] sm:h-11 sm:w-11" />
+          <Logo className="h-10 w-10 transition duration-300 group-hover:scale-110 sm:h-11 sm:w-11" />
           <div className="leading-tight">
             <p className="font-display text-base font-bold text-white sm:text-lg">{site.name}</p>
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent-300">{site.wilayah}</p>
           </div>
         </Link>
 
-        {/* Desktop */}
         <div className="hidden items-center gap-1 md:flex">
           {LINKS.map(({ to, label, end }) => (
             <NavLink
@@ -77,7 +76,6 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Tombol mobile */}
         <button
           onClick={() => setOpen((v) => !v)}
           className="relative grid h-11 w-11 place-items-center rounded-xl text-white transition hover:bg-white/10 md:hidden"
@@ -89,13 +87,11 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Progress scroll */}
       <div
         className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-accent-300 to-accent-600 transition-[width] duration-150"
         style={{ width: `${progress}%` }}
       />
 
-      {/* Menu mobile */}
       <div
         className={`grid overflow-hidden transition-all duration-300 md:hidden ${
           open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'

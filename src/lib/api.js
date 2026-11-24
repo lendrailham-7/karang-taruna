@@ -17,10 +17,6 @@ function unwrap({ data, error, count }) {
   return count !== undefined && count !== null ? { data, count } : data
 }
 
-/* ------------------------------------------------------------------ */
-/*  KEGIATAN                                                           */
-/* ------------------------------------------------------------------ */
-
 export async function getKegiatan({ limit } = {}) {
   let query = client()
     .from('kegiatan')
@@ -48,10 +44,6 @@ export async function deleteKegiatan(item) {
   await deleteFotoByUrl(item.foto_url)
 }
 
-/* ------------------------------------------------------------------ */
-/*  ANGGOTA                                                            */
-/* ------------------------------------------------------------------ */
-
 export async function getAnggota() {
   const data = unwrap(
     await client().from('anggota').select('*').order('created_at', { ascending: true }),
@@ -72,10 +64,6 @@ export async function deleteAnggota(item) {
   await deleteFotoByUrl(item.foto_url)
 }
 
-/* ------------------------------------------------------------------ */
-/*  STATISTIK                                                          */
-/* ------------------------------------------------------------------ */
-
 export async function getStats() {
   const c = client()
   const [k, a] = await Promise.all([
@@ -87,16 +75,6 @@ export async function getStats() {
   return { kegiatan: k.count ?? 0, anggota: a.count ?? 0 }
 }
 
-/* ------------------------------------------------------------------ */
-/*  STORAGE FOTO                                                       */
-/* ------------------------------------------------------------------ */
-
-/**
- * Upload file (sudah dikompres) ke bucket "foto".
- * @param {Blob} file
- * @param {'kegiatan'|'anggota'} folder
- * @returns {Promise<string>} URL publik
- */
 export async function uploadFoto(file, folder) {
   const c = client()
   const ext = file.type === 'image/webp' ? 'webp' : file.type === 'image/png' ? 'png' : 'jpg'
@@ -117,13 +95,6 @@ export async function uploadFoto(file, folder) {
   return data.publicUrl
 }
 
-/**
- * Simpan record yang punya foto dengan aman:
- * 1. Upload foto baru (jika ada)
- * 2. Simpan record lewat callback `save(foto_url)`
- * 3. Hapus foto lama bila diganti/dihapus
- * Jika penyimpanan gagal, foto yang baru diupload dibersihkan lagi.
- */
 export async function simpanDenganFoto({ folder, oldUrl = null, newFile = null, removeFoto = false, save }) {
   let fotoUrl = oldUrl
   let uploadedUrl = null
@@ -145,7 +116,6 @@ export async function simpanDenganFoto({ folder, oldUrl = null, newFile = null, 
   }
 }
 
-/** Ambil path di dalam bucket dari URL publik Supabase Storage. */
 export function getPathFromPublicUrl(url) {
   if (!url) return null
   const marker = `/storage/v1/object/public/${BUCKET_FOTO}/`
@@ -154,7 +124,6 @@ export function getPathFromPublicUrl(url) {
   return decodeURIComponent(url.slice(idx + marker.length).split('?')[0])
 }
 
-/** Hapus file foto berdasarkan URL publiknya (diam jika gagal/bukan dari bucket). */
 export async function deleteFotoByUrl(url) {
   const path = getPathFromPublicUrl(url)
   if (!path) return

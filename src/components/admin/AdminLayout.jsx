@@ -8,7 +8,7 @@ import Logo from '../Logo'
 import ConfigNotice from '../ConfigNotice'
 
 const MENU = [
-  { to: '/admin', label: 'Dasbor', icon: LayoutDashboard, end: true },
+  { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/admin/kegiatan', label: 'Kegiatan', icon: CalendarDays },
   { to: '/admin/anggota', label: 'Anggota', icon: Users },
 ]
@@ -21,14 +21,17 @@ export default function AdminLayout() {
 
   const logout = async () => {
     setLoggingOut(true)
-    await signOut()
-    toast.info('Anda telah keluar.')
-    navigate('/admin/login', { replace: true })
+    try {
+      await signOut()
+      toast.info('Anda telah keluar.')
+      navigate('/admin/login', { replace: true })
+    } finally {
+      setLoggingOut(false)
+    }
   }
 
   return (
     <div className="min-h-screen bg-stone-100/70 pb-20 lg:pb-0 lg:pl-64">
-      {/* Sidebar desktop */}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col bg-primary-950 text-primary-100 lg:flex">
         <div className="bg-batik absolute inset-0 opacity-30" />
         <div className="relative flex h-20 items-center gap-3 border-b border-white/10 px-6">
@@ -80,7 +83,6 @@ export default function AdminLayout() {
         </div>
       </aside>
 
-      {/* Header mobile */}
       <header className="sticky top-0 z-30 flex h-16 items-center justify-between bg-primary-950 px-4 text-white shadow-lg lg:hidden">
         <div className="flex items-center gap-2.5">
           <Logo className="h-9 w-9" />
@@ -108,7 +110,6 @@ export default function AdminLayout() {
         <Outlet />
       </main>
 
-      {/* Navigasi bawah mobile */}
       <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 border-t border-stone-200 bg-white/95 backdrop-blur lg:hidden">
         {MENU.map(({ to, label, icon: Icon, end }) => (
           <NavLink

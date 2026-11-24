@@ -42,7 +42,6 @@ export default function Anggota() {
   const [selected, setSelected] = useState(null)
   const closeLightbox = useCallback(() => setSelected(null), [])
 
-  // Hitung jumlah anggota per kelompok (sebelum pencarian) untuk badge di tab filter
   const allGroups = useMemo(() => groupAnggota(data ?? []), [data])
   const countByKey = useMemo(() => {
     const map = new Map()
@@ -64,7 +63,6 @@ export default function Anggota() {
     [data, countByKey],
   )
 
-  // Saring berdasarkan pencarian + tab aktif
   const filteredGroups = useMemo(() => {
     const q = query.trim().toLowerCase()
     const filteredList = (data ?? []).filter((a) => {
@@ -106,7 +104,6 @@ export default function Anggota() {
       />
 
       <section className="container-page py-12 sm:py-16">
-        {/* Toolbar sticky: pencarian + filter per jabatan/divisi */}
         <div className="sticky top-16 z-30 -mx-4 mb-10 bg-stone-50/95 px-4 py-3 backdrop-blur-md sm:top-20 sm:mx-0 sm:rounded-2xl sm:px-0">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="relative w-full lg:max-w-sm">
@@ -141,7 +138,6 @@ export default function Anggota() {
             )}
           </div>
 
-          {/* Filter chips per jabatan/divisi */}
           <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
             {tabs.map((tab) => {
               const active = activeTab === tab.key
@@ -204,7 +200,6 @@ export default function Anggota() {
 
               return (
                 <section key={group.key} aria-labelledby={`heading-${group.key}`}>
-                  {/* Header bagian / divisi */}
                   <Reveal className="mb-6 flex flex-col gap-3 border-b border-primary-100 pb-4 sm:flex-row sm:items-end sm:justify-between">
                     <div className="flex items-start gap-3.5">
                       <div
@@ -239,7 +234,6 @@ export default function Anggota() {
                     </div>
                   </Reveal>
 
-                  {/* Grid kartu anggota */}
                   <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
                     {group.items.map((a, i) => (
                       <Reveal key={a.id} delay={(i % 4) * 70} className="h-full">
@@ -254,7 +248,6 @@ export default function Anggota() {
         )}
       </section>
 
-      {/* Lihat foto anggota */}
       {selected?.foto_url ? (
         <Lightbox src={selected.foto_url} alt={selected.nama} open onClose={closeLightbox} />
       ) : selected ? (

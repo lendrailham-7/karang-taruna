@@ -1,12 +1,3 @@
-/**
- * Struktur organisasi Karang Taruna 14 Antapani Kidul.
- *
- * Nilai disimpan pada kolom `anggota.jabatan` agar tidak perlu mengubah skema DB:
- * - Pengurus Inti : "Pembina", "Ketua", "Wakil Ketua", "Ketua Pelaksana",
- *                   "Wakil Ketua Pelaksana", "Sekretaris", "Bendahara"
- * - Divisi        : "Koordinator Divisi <Nama>" atau "Anggota Divisi <Nama>"
- */
-
 export const JABATAN_INTI = [
   { id: 'pembina', label: 'Pembina' },
   { id: 'ketua', label: 'Ketua' },
@@ -31,16 +22,10 @@ export function formatJabatanDivisi(divisi, peran = 'Anggota') {
   return `${peran} Divisi ${divisi}`
 }
 
-/**
- * Mengurai string `jabatan` dari database menjadi info terstruktur
- * (kategori, divisi, peran, status koordinator, dan urutan hierarki).
- */
 export function parseJabatan(raw = '') {
   const original = (raw || '').trim()
   const lower = original.toLowerCase()
 
-  // 1. Cek apakah termasuk salah satu Divisi terlebih dahulu
-  //    (agar "Ketua Divisi Acara" / "Koordinator PDD" tetap masuk ke divisinya)
   for (let i = 0; i < DAFTAR_DIVISI.length; i++) {
     const div = DAFTAR_DIVISI[i]
     const pattern = new RegExp(`\\b${div.nama.toLowerCase()}\\b`, 'i')
@@ -62,7 +47,6 @@ export function parseJabatan(raw = '') {
     }
   }
 
-  // 2. Cek Pengurus Inti — cek jabatan yang lebih spesifik dulu agar tidak tertukar
   const intiMatchers = [
     { idx: 0, label: 'Pembina', test: (s) => s.includes('pembina') || s.includes('penasehat') || s.includes('penasihat') },
     { idx: 4, label: 'Wakil Ketua Pelaksana', test: (s) => s.includes('wakil ketua pelaksana') || s.includes('wakil pelaksana') },
@@ -75,7 +59,6 @@ export function parseJabatan(raw = '') {
 
   for (const m of intiMatchers) {
     if (m.test(lower)) {
-      // Wakil sekretaris / wakil bendahara sedikit di bawah sekretaris / bendahara utama
       const subRank = (m.idx === 5 || m.idx === 6) && lower.includes('wakil') ? 0.5 : 0
       return {
         kategori: 'inti',
@@ -92,7 +75,6 @@ export function parseJabatan(raw = '') {
     }
   }
 
-  // 3. Kategori lain (misal "Anggota" umum atau jabatan kustom)
   return {
     kategori: 'lainnya',
     groupKey: 'lainnya',
@@ -107,7 +89,6 @@ export function parseJabatan(raw = '') {
   }
 }
 
-/** Urutkan daftar anggota sesuai hierarki struktural -> divisi (koordinator dulu) -> waktu dibuat. */
 export function sortAnggota(list = []) {
   return [...list].sort((a, b) => {
     const pa = parseJabatan(a.jabatan)
@@ -117,10 +98,6 @@ export function sortAnggota(list = []) {
   })
 }
 
-/**
- * Kelompokkan daftar anggota menjadi bagian Pengurus Inti, per Divisi, dan Lainnya.
- * Setiap grup sudah diurutkan (Koordinator tampil paling depan di tiap divisi).
- */
 export function groupAnggota(list = []) {
   const sorted = sortAnggota(list)
   const buckets = new Map()

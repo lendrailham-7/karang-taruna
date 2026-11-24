@@ -1,6 +1,5 @@
 const BULAN_PENDEK = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des']
 
-/** Parse 'YYYY-MM-DD' sebagai tanggal lokal (hindari geser zona waktu). */
 export function parseDate(value) {
   if (!value) return null
   if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
@@ -32,7 +31,6 @@ export function tanggalParts(value) {
   }
 }
 
-/** Apakah tanggal kegiatan masih akan datang (hari ini termasuk). */
 export function isUpcoming(value) {
   const date = parseDate(value)
   if (!date) return false

@@ -44,9 +44,7 @@ export default function KegiatanDetail() {
     if (navigator.share) {
       try {
         await navigator.share({ title: item.judul, text: item.judul, url })
-      } catch {
-        /* dibatalkan pengguna */
-      }
+      } catch {}
       return
     }
     try {

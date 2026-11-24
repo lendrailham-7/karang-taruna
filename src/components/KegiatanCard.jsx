@@ -26,7 +26,6 @@ export default function KegiatanCard({ item }) {
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-primary-950/70 via-transparent to-transparent opacity-70 transition group-hover:opacity-90" />
 
-        {/* Badge tanggal */}
         <div className="absolute left-4 top-4 flex flex-col items-center rounded-xl bg-white/95 px-3 py-1.5 text-center shadow-lg backdrop-blur transition group-hover:bg-accent-400">
           <span className="text-xl font-extrabold leading-none text-primary-800">{day}</span>
           <span className="text-[10px] font-bold uppercase tracking-wider text-primary-700">

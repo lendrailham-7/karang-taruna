@@ -2,15 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { ImagePlus, Loader2, RefreshCw, Trash2, UploadCloud } from 'lucide-react'
 import { compressImage, formatBytes } from '../../lib/imageCompression'
 
-/**
- * Input foto dengan drag & drop, preview, dan kompresi otomatis di browser.
- * @param {{
- *   existingUrl?: string|null,
- *   onChange: (state: { file: Blob|null, removed: boolean }) => void,
- *   rounded?: boolean,
- *   disabled?: boolean,
- * }} props
- */
 export default function ImageUpload({ existingUrl = null, onChange, rounded = false, disabled = false }) {
   const inputRef = useRef(null)
   const [preview, setPreview] = useState(existingUrl)

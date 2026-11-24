@@ -1,15 +1,3 @@
-/** @type {import('tailwindcss').Config} */
-
-/*
- * ============================================================
- *  WARNA TEMA
- *  Ganti palet di bawah ini untuk mengubah warna seluruh website.
- *  - primary : warna utama (merah marun)
- *  - accent  : warna aksen (gold)
- *  Semua komponen memakai `primary-*` dan `accent-*`, jadi cukup
- *  ubah di sini saja.
- * ============================================================
- */
 const primary = {
   50: '#fdf3f4',
   100: '#fbe6e8',

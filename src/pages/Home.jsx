@@ -20,6 +20,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import KegiatanCard from '../components/KegiatanCard'
+import Logo from '../components/Logo'
 import EmptyState from '../components/EmptyState'
 import ErrorState from '../components/ErrorState'
 import { KegiatanGridSkeleton } from '../components/Skeleton'
@@ -35,7 +36,7 @@ function useCountUp(target, start) {
   const [value, setValue] = useState(0)
   useEffect(() => {
     if (!start || !target) {
-      setValue(target ? 0 : 0)
+      setValue(0)
       return undefined
     }
     let raf
@@ -52,7 +53,7 @@ function useCountUp(target, start) {
   return value
 }
 
-function StatItem({ icon: Icon, value, label, start, loading }) {
+function StatItem({ icon: Icon, value, suffix = '', label, start, loading }) {
   const n = useCountUp(value ?? 0, start)
   return (
     <div className="group flex items-center gap-4 rounded-2xl bg-white/5 p-4 ring-1 ring-white/10 backdrop-blur transition hover:bg-white/10 sm:p-5">
@@ -61,7 +62,11 @@ function StatItem({ icon: Icon, value, label, start, loading }) {
       </div>
       <div>
         <p className="text-2xl font-extrabold text-white sm:text-3xl">
-          {loading ? <span className="inline-block h-7 w-10 animate-pulse rounded bg-white/20" /> : `${n}+`}
+          {loading ? (
+            <span className="inline-block h-7 w-10 animate-pulse rounded bg-white/20" />
+          ) : (
+            `${n}${suffix}`
+          )}
         </p>
         <p className="text-xs font-medium uppercase tracking-wider text-primary-200">{label}</p>
       </div>
@@ -88,9 +93,8 @@ function Hero() {
     <section
       ref={heroRef}
       onMouseMove={onMove}
-      className="relative isolate overflow-hidden bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800 pb-20 pt-32 sm:pb-28 sm:pt-40"
+      className="relative isolate overflow-hidden bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800 pb-20 pt-28 sm:pb-28 sm:pt-36"
     >
-      {/* Ornamen latar */}
       <div className="bg-batik absolute inset-0 -z-10 opacity-60" />
       <div
         className="absolute -right-32 -top-32 -z-10 h-[28rem] w-[28rem] rounded-full bg-accent-500/20 blur-3xl transition-transform duration-700 ease-out"
@@ -100,51 +104,58 @@ function Hero() {
         className="absolute -bottom-40 -left-32 -z-10 h-[30rem] w-[30rem] rounded-full bg-primary-500/30 blur-3xl transition-transform duration-700 ease-out"
         style={{ transform: `translate(${mouse.x * 40}px, ${mouse.y * 40}px)` }}
       />
-      <svg
-        className="absolute right-6 top-28 -z-10 hidden h-40 w-40 animate-float text-accent-400/20 lg:block"
-        viewBox="0 0 100 100"
-        aria-hidden="true"
-      >
-        <path fill="currentColor" d="M50 0l12 38h38L69 61l12 39-31-24-31 24 12-39L0 38h38z" />
-      </svg>
 
       <div className="container-page">
-        <div className="max-w-3xl">
-          <p
-            className="inline-flex animate-fade-up items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-200 ring-1 ring-accent-300/30 backdrop-blur"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-400" />
-            </span>
-            Organisasi Kepemudaan RW 14
-          </p>
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-7">
+            <p className="inline-flex animate-fade-up items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-200 ring-1 ring-accent-300/30 backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-400" />
+              </span>
+              Organisasi Kepemudaan RW 14
+            </p>
 
-          <h1 className="mt-6 animate-fade-up font-display text-4xl font-extrabold leading-[1.1] text-white [animation-delay:100ms] sm:text-5xl lg:text-6xl">
-            Karang Taruna <span className="text-gradient-gold">14</span>
-            <br />
-            Antapani Kidul
-          </h1>
+            <h1 className="mt-6 animate-fade-up font-display text-4xl font-extrabold leading-[1.1] text-white [animation-delay:100ms] sm:text-5xl lg:text-6xl">
+              Karang Taruna <span className="text-gradient-gold">14</span>
+              <br />
+              Antapani Kidul
+            </h1>
 
-          <p className="mt-5 animate-fade-up text-lg font-medium text-accent-200 [animation-delay:200ms] sm:text-xl">
-            “{site.tagline}”
-          </p>
-          <p className="mt-4 max-w-2xl animate-fade-up text-base leading-relaxed text-primary-100/90 [animation-delay:300ms]">
-            {site.description}
-          </p>
+            <p className="mt-5 animate-fade-up text-lg font-medium text-accent-200 [animation-delay:200ms] sm:text-xl">
+              “{site.tagline}”
+            </p>
+            <p className="mt-4 max-w-2xl animate-fade-up text-base leading-relaxed text-primary-100/90 [animation-delay:300ms]">
+              {site.description}
+            </p>
 
-          <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:400ms]">
-            <Link to="/kegiatan" className="btn-accent group !px-6 !py-3">
-              Lihat Kegiatan
-              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-            </Link>
-            <Link to="/anggota" className="btn-ghost-light !px-6 !py-3">
-              <Users className="h-4 w-4" /> Kenali Pengurus
-            </Link>
+            <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:400ms]">
+              <Link to="/kegiatan" className="btn-accent group !px-6 !py-3">
+                Lihat Kegiatan
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </Link>
+              <Link to="/anggota" className="btn-ghost-light !px-6 !py-3">
+                <Users className="h-4 w-4" /> Kenali Pengurus
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex animate-fade-up justify-center [animation-delay:250ms] lg:col-span-5 lg:justify-end">
+            <div
+              className="relative flex items-center justify-center transition-transform duration-500 ease-out"
+              style={{ transform: `translate(${mouse.x * -18}px, ${mouse.y * -18}px)` }}
+            >
+              <div className="absolute -inset-6 rounded-full bg-gradient-to-tr from-accent-500/25 via-accent-300/15 to-primary-500/20 blur-2xl" />
+              <div className="absolute -inset-3 rounded-full ring-1 ring-accent-300/25" />
+              <Logo className="relative h-48 w-48 animate-float drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)] sm:h-56 sm:w-56 lg:h-72 lg:w-72 xl:h-80 xl:w-80" />
+            </div>
           </div>
         </div>
 
-        <div ref={statsRef} className="mt-14 grid max-w-3xl animate-fade-up grid-cols-1 gap-3 [animation-delay:500ms] sm:grid-cols-3 sm:gap-4">
+        <div
+          ref={statsRef}
+          className="mt-14 grid max-w-3xl animate-fade-up grid-cols-1 gap-3 [animation-delay:500ms] sm:grid-cols-3 sm:gap-4"
+        >
           <StatItem
             icon={CalendarDays}
             value={stats.data?.kegiatan}
@@ -159,7 +170,14 @@ function Hero() {
             start={statsVisible}
             loading={stats.loading}
           />
-          <StatItem icon={HandHeart} value={100} label="% Semangat" start={statsVisible} loading={false} />
+          <StatItem
+            icon={HandHeart}
+            value={100}
+            suffix="%"
+            label="Semangat"
+            start={statsVisible}
+            loading={false}
+          />
         </div>
       </div>
 

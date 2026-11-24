@@ -125,7 +125,6 @@ export default function AnggotaAdmin() {
         </button>
       </div>
 
-      {/* Pencarian & filter struktur/divisi */}
       <div className="space-y-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative w-full sm:max-w-sm">
@@ -185,7 +184,6 @@ export default function AnggotaAdmin() {
         </div>
       </div>
 
-      {/* Daftar terkelompok per jabatan/divisi */}
       {loading ? (
         <div className="card overflow-hidden">
           <TableRowSkeleton rows={5} />
