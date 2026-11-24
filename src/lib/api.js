@@ -1,4 +1,7 @@
 import { supabase, isSupabaseConfigured, BUCKET_FOTO } from './supabase'
+import { sortAnggota } from '../config/struktur'
+
+export { sortAnggota }
 
 function client() {
   if (!isSupabaseConfigured || !supabase) {
@@ -48,38 +51,6 @@ export async function deleteKegiatan(item) {
 /* ------------------------------------------------------------------ */
 /*  ANGGOTA                                                            */
 /* ------------------------------------------------------------------ */
-
-// Urutan jabatan inti agar pengurus tampil paling atas
-const URUTAN_JABATAN = [
-  'pembina',
-  'penasehat',
-  'penasihat',
-  'ketua',
-  'wakil ketua',
-  'sekretaris',
-  'wakil sekretaris',
-  'bendahara',
-  'wakil bendahara',
-  'koordinator',
-  'seksi',
-  'divisi',
-]
-
-function rankJabatan(jabatan = '') {
-  const j = jabatan.toLowerCase().trim()
-  const exact = URUTAN_JABATAN.indexOf(j)
-  if (exact !== -1) return exact
-  const partial = URUTAN_JABATAN.findIndex((k) => j.startsWith(k))
-  return partial !== -1 ? partial + 0.5 : URUTAN_JABATAN.length + 1
-}
-
-export function sortAnggota(list = []) {
-  return [...list].sort(
-    (a, b) =>
-      rankJabatan(a.jabatan) - rankJabatan(b.jabatan) ||
-      new Date(a.created_at) - new Date(b.created_at),
-  )
-}
 
 export async function getAnggota() {
   const data = unwrap(
